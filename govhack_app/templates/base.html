@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GovHack 2017</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+  </head>
+  <body>
+    <div id="app">{% block content %}{% endblock %}</div>
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
