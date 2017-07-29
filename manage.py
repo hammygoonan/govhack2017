@@ -8,12 +8,40 @@ function name
 
 import sys
 from govhack_app import create_app
+# from data.lga import import_lga
+# from data.example_data import example_data
 
 
 def runserver():
     """Runs development server."""
     app = create_app('config.development')
     app.run()
+
+
+def lga_data():
+    """imports LGA data."""
+    from data.lga import import_lga
+    app = create_app('config.development')
+    with app.app_context():
+        import_lga()
+
+
+def example():
+    """imports LGA data."""
+    from data.example_data import example_data
+    app = create_app('config.development')
+    with app.app_context():
+        example_data()
+
+
+def create_db():
+    """imports LGA data."""
+    from govhack_app import create_app
+    from govhack_app import db
+    from govhack_app.location.models import Lga, Postcode
+    app = create_app('config.development')
+    with app.app_context():
+        db.create_all()
 
 
 if __name__ == "__main__":

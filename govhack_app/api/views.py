@@ -3,6 +3,7 @@
 
 from flask import Blueprint
 from flask import jsonify
+from govhack_app.location.models import Postcode
 
 
 api_blueprint = Blueprint(
@@ -12,4 +13,5 @@ api_blueprint = Blueprint(
 
 @api_blueprint.route('/')
 def home():
-    return jsonify({'message': 'Hello World'})
+    postcodes = Postcode.query.all()
+    return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
