@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "description": "GovHack 2017",
+  "main": "",
+  "authors": [
+    "Hammy Goonan <hammy@falconry.io>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/hammygoonan/govhack2017",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "handlebars": "^4.0.10",
+    "jquery": "^3.2.1",
+    "mustache.js": "mustache#^2.3.0"
+  }
+}

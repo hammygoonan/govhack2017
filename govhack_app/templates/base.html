@@ -6,7 +6,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
   </head>
   <body>
-    <div id="app">{% block content %}{% endblock %}</div>
-    <script src="http://localhost:8080/dist/build.js"></script>
+    <div class="container">
+      <nav class="navbar">
+        <div class="navbar-brand">
+          <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="New Kids on the Block" width="200">
+        </div>
+      </nav>
+    </div>
+    <div id="app">
+      {% block content %}{% endblock %}
+    </div>
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/handlebars/handlebars.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTXMbMze8OfMdzgK8z3y0R66NPO6eOoro&callback=initMap">
+    </script>
   </body>
 </html>

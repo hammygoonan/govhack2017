@@ -32,4 +32,8 @@ with open('childcare_centres.csv', 'w') as f:
                     'strong', text="Service Type").parent.parent.find_all('div')[1].text.strip()
             except:
                 service_type = None
-            writer.writerow([name, address, suburb, pcode, service_type, place])
+
+            for p in item.find_all('p'):
+                if "Overall Rating" in p.text:
+                    rating = p.text.replace('Overall Rating:', '').strip()
+            writer.writerow([name, address, suburb, pcode, service_type, place, rating])

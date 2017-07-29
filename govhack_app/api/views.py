@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Bottle views API endpoint."""
+"""API endpoint."""
 
 from flask import Blueprint
 from flask import jsonify
