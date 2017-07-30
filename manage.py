@@ -38,7 +38,7 @@ def create_db():
     """imports LGA data."""
     from govhack_app import create_app
     from govhack_app import db
-    from govhack_app.location.models import Lga, Postcode
+    from govhack_app.location.models import Lga, Postcode, Demand
     app = create_app('config.development')
     with app.app_context():
         db.create_all()

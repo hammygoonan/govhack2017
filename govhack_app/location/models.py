@@ -36,49 +36,66 @@ class Postcode(db.Model):
     postcode = db.Column(db.Integer, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
-    score_1_year = db.Column(db.Integer, nullable=False)
-    score_5_year = db.Column(db.Integer, nullable=False)
-    score_10_year = db.Column(db.Integer, nullable=False)
-    avg_income = db.Column(db.Integer, nullable=False)
-    income_below_threshold = db.Column(db.Enum('Low', 'Medium', 'High'))
-    property_growth = db.Column(db.Float, nullable=False)
-    population_growth = db.Column(db.Float, nullable=False)
-    seifa = db.Column(db.Float, nullable=False)
-    places_needed_1_year = db.Column(db.Integer, nullable=False)
-    places_needed_5_year = db.Column(db.Integer, nullable=False)
-    places_needed_10_year = db.Column(db.Integer, nullable=False)
+    demands = db.relationship('Demand', backref='postcode', lazy='dynamic')
 
     def __init__(self, **kwargs):
         self.postcode = kwargs.get('postcode')
         self.longitude = kwargs.get('longitude')
         self.latitude = kwargs.get('latitude')
-        self.score_1_year = kwargs.get('score_1_year')
-        self.score_5_year = kwargs.get('score_5_year')
-        self.score_10_year = kwargs.get('score_10_year')
-        self.avg_income = kwargs.get('avg_income')
-        self.income_below_threshold = kwargs.get('income_below_threshold')
-        self.property_growth = kwargs.get('property_growth')
-        self.population_growth = kwargs.get('population_growth')
-        self.seifa = kwargs.get('seifa')
-        self.places_needed_1_year = kwargs.get('places_needed_1_year')
-        self.places_needed_5_year = kwargs.get('places_needed_5_year')
-        self.places_needed_10_year = kwargs.get('places_needed_10_year')
 
     def serialise(self):
         return {
             'postcode': self.postcode,
             'longitude': self.longitude,
             'latitude': self.latitude,
+            'lga': [{'name': lga.lga_name} for lga in self.lgas]
+            }
+
+
+class Demand(db.Model):
+
+    __tablename__ = 'demands'
+
+    id = db.Column(db.Integer, primary_key=True)
+    postcode_id = db.Column(db.Integer, db.ForeignKey('postcodes.id'), nullable=False)
+    government_funded_places = db.Column(db.Integer)
+    seifa = db.Column(db.Float)
+    age = db.Column(db.Enum('0-4', '5-9', '10-14'))
+    population_growth = db.Column(db.Float)
+    property_median_price = db.Column(db.Float)
+    score_1_year = db.Column(db.Integer)
+    score_5_year = db.Column(db.Integer)
+    score_10_year = db.Column(db.Integer)
+    places_needed_1_year = db.Column(db.Integer)
+    places_needed_5_year = db.Column(db.Integer)
+    places_needed_10_year = db.Column(db.Integer)
+
+    def __init__(self, **kwargs):
+        self.postcode_id = kwargs.get('postcode_id')
+        self.government_funded_places = kwargs.get('government_funded_places')
+        self.seifa = kwargs.get('seifa')
+        self.age = kwargs.get('age')
+        self.population_growth = kwargs.get('population_growth')
+        self.property_median_price = kwargs.get('property_median_price')
+        self.score_1_year = kwargs.get('score_1_year')
+        self.score_5_year = kwargs.get('score_5_year')
+        self.score_10_year = kwargs.get('score_10_year')
+        self.places_needed_1_year = kwargs.get('places_needed_1_year')
+        self.places_needed_5_year = kwargs.get('places_needed_5_year')
+        self.places_needed_10_year = kwargs.get('places_needed_10_year')
+
+    def serialise(self):
+        return {
+            'postcode': self.postcode.serialise(),
+            'government_funded_places': self.government_funded_places,
+            'seifa': self.seifa,
+            'age': self.age,
+            'population_growth': self.population_growth,
+            'property_median_price': self.property_median_price,
             'score_1_year': self.score_1_year,
             'score_5_year': self.score_5_year,
             'score_10_year': self.score_10_year,
-            'avg_income': self.avg_income,
-            'income_below_threshold': self.income_below_threshold,
-            'property_growth': self.property_growth,
-            'population_growth': self.population_growth,
-            'seifa': self.seifa,
             'places_needed_1_year': self.places_needed_1_year,
             'places_needed_5_year': self.places_needed_5_year,
-            'places_needed_10_year': self.places_needed_10_year,
-            'lga': [{'name': lga.lga_name} for lga in self.lgas]
+            'places_needed_10_year': self.places_needed_10_year
             }
