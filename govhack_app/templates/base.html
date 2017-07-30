@@ -13,65 +13,6 @@
           <div class="navbar-brand">
             <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="New Kids on the Block" width="200">
           </div>
-          <div class="navbar-item">
-            <a class="navbar-link">Filters</a>
-            <div class="filter">
-              <form id="filter-form">
-                <p><strong>Forecast Period:</strong></p>
-                <div class="field is-grouped">
-                  <div class="control">
-                    <label class="radio">
-                      <input type="radio" name="forecast" value="1" checked />
-                      Current
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="forecast" value="5" />
-                      5 years
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="forecast" value="10" />
-                      10 years
-                    </label>
-                  </div>
-                </div>
-                <p><strong>Age group:</strong></p>
-                <div class="field is-grouped">
-                  <div class="control">
-                    <label class="radio">
-                      <input type="radio" name="age" value="0-4" checked />
-                      0 - 4 years
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="age" value="5-9" />
-                      5 - 9 years
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="age" value="10-14" />
-                      10 - 14 years
-                    </label>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button class="button is-primary">Submit</button>
-                  </div>
-                </div>
-              </form>
-              <form>
-                <div class="field">
-                  <div class="control">
-                    <input type="input" name="postcode" class="input" placeholder="Search by postcode" />
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <button class="button is-primary">Submit</button>
-                  </div>
-                </div>
-              </form>
-              <a href="/api/">Download data</a>
-            </div>
-          </div>
         </nav>
       </div>
     </div>

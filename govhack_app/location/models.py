@@ -79,5 +79,6 @@ class Postcode(db.Model):
             'seifa': self.seifa,
             'places_needed_1_year': self.places_needed_1_year,
             'places_needed_5_year': self.places_needed_5_year,
-            'places_needed_10_year': self.places_needed_10_year
+            'places_needed_10_year': self.places_needed_10_year,
+            'lga': [{'name': lga.lga_name} for lga in self.lgas]
             }

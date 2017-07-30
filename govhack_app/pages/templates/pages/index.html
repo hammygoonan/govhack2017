@@ -1,42 +1,116 @@
 {% extends "base.html" %}
 {% block content %}
-<div id="map"></div>
-<div id="details"></div>
+<div class="columns">
+  <div class="column is-3 side-bar">
+    <div id="details">
+      <div class="filter">
+        <form id="filter-form">
+          <h4 class="title">Filter:</h4>
+          <p><strong>Forecast Period:</strong></p>
+          <div class="field is-grouped">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="forecast" value="1" checked />
+                Current
+              </label>
+              <label class="radio">
+                <input type="radio" name="forecast" value="5" />
+                5 years
+              </label>
+              <label class="radio">
+                <input type="radio" name="forecast" value="10" />
+                10 years
+              </label>
+            </div>
+          </div>
+          <p><strong>Age group:</strong></p>
+          <div class="field is-grouped">
+            <div class="control">
+              <label class="radio">
+                <input type="radio" name="age" value="0-4" checked />
+                0 - 4 years
+              </label>
+              <label class="radio">
+                <input type="radio" name="age" value="5-9" />
+                5 - 9 years
+              </label>
+              <label class="radio">
+                <input type="radio" name="age" value="10-14" />
+                10 - 14 years
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-primary">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <form id="pcode-form">
+        <h4 class="title">Seach by postcode:</h4>
+        <p>Click on a dot below or:<p>
+        <div class="field">
+          <div class="control">
+            <input type="input" name="postcode" id="pcode-field" class="input" placeholder="Search by postcode" />
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="pcode-details"></div>
+    <div class="stat-box">
+      <h4 class="title">Get full data:</h4>
+      <a href="/api/">Download data</a>
+    </div>
+  </div>
+  <div class="column is-9">
+    <div id="map"></div>
+  </div>
+</div>
 {% raw %}
   <script id="entry-template" type="text/x-handlebars-template">
-    <section class="section">
-      <h1 class="title">{{ postcode }}</h1>
-      <p>
-        <strong>Average Income:</strong> {{avg_income}}
-      </p>
-      <p>
-        <strong>Income below threshold:</strong> {{income_below_threshold}}
-      </p>
-      <p>
-        <strong>Places needed in one year:</strong> {{places_needed_1_year}}
-      </p>
-      <p>
-        <strong>Places needed in five years:</strong> {{places_needed_5_year}}
-      </p>
-      <p>
-        <strong>Places needed in ten years:</strong> {{places_needed_10_year}}
-      </p>
-      <p>
-        <strong>Population growth:</strong> {{population_growth}}
-      </p>
-      <p>
-        <strong>Child care needs score (one year):</strong> {{score_1_year}}
-      </p>
-      <p>
-        <strong>Child care needs score (five years):</strong> {{score_5_year}}
-      </p>
-      <p>
-        <strong>Child care needs score (ten years):</strong> {{score_10_year}}
-      </p>
-      <p>
-        <strong>SEIFA score:</strong> {{seifa}}
-      </p>
-      <button class="modal-close is-large"></button>
+    <section class="results">
+      <div class="stat-box">
+        <p><strong>Postcode</strong></p>
+        <h1 class="title">{{ postcode }}</h1>
+        <ul>
+          {{#each lga}}<li>{{name}}</li>{{/each}}
+        </ul>
+      </div>
+      <div class="stat-box">
+        <p><strong>Need ranking:</strong></p>
+        <h1 class="title">{{ score }}</h1>
+      </div>
+      <div class="stat-box">
+        <p><strong>Age group:</strong></p>
+        <h1 class="title">{{ age }} year(s)</h1>
+      </div>
+      <div class="stat-box">
+        <h4 class="title">Child care centres needed (within 5km):</h4>
+        <p>One year: {{places_needed_1_year}}</p>
+        <p>Five years: {{places_needed_5_year}}</p>
+        <p>Ten years: {{places_needed_10_year}}</p>
+      </div>
+      <div class="stat-box">
+        <h4 class="title">Child population growth:</h4>
+        <p>{{ population_growth }}</p>
+      </div>
+      <div class="stat-box">
+        <h4 class="title">Socio-economic indexes for area:</h4>
+        <p><strong>Average Income:</strong> {{avg_income}}</p>
+        <p><strong>Income below threshold:</strong> {{income_below_threshold}}</p>
+        <p><strong>Population growth:</strong> {{population_growth}}</p>
+        <p><strong>SEIFA score:</strong> {{seifa}}</p>
+      </div>
+      <div class="stat-box">
+        <h4 class="title">Media house price:</h4>
+        <p>{{ property_growth }}</p>
+      </div>
     </section>
   </script>
 {% endraw %}

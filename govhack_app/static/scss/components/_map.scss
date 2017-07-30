@@ -1,15 +1,33 @@
-#map {
-  width: 100%;
+.side-bar {
   height: 100vh;
 }
 
-#details{
-  left: 0;
-  top: 55px;
-  background-color: white;
-  width: 20%;
+#map {
+  height: 90vh;
+}
 
-  &.is-active{
-    position: fixed;
-  }
+#details{
+  background-color: white;
+  padding: 10px;
+  overflow-x: scroll;
+}
+
+#pcode-details{
+  // padding: 10px;
+}
+
+#pcode-form{
+  margin-top: 0;
+}
+
+#pcode-form h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.stat-box {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

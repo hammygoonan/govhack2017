@@ -17,7 +17,13 @@ def index():
     return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
 
 
-@api_blueprint.route('/age/<period>')
-def filter(period):
+@api_blueprint.route('/age/<age>')
+def filter(age):
     postcodes = Postcode.query.all()
     return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
+
+
+@api_blueprint.route('/postcode/<postcode>/age/<age>')
+def postcode(postcode, age):
+    postcode = Postcode.query.filter_by(postcode=postcode).first()
+    return jsonify(postcode.serialise())

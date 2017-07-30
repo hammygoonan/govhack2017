@@ -50,28 +50,30 @@ $(document).ready(function() {
     $.getJSON('/api/age/' + age, function(data){
       $(data.postcodes).each(function(){
         if(forecast == 5){
-          var age_icon = this.score_5_year
+          var icon = this.score_5_year
         }
         if(forecast == 10){
-          var age_icon = this.score_10_year
+          var icon = this.score_10_year
         }
         else{
-          var age_icon = this.score_1_year
+          var icon = this.score_1_year
         }
-        var icon = '/static/img/marker_0' + age_icon + 'b.svg';
+        this.score = icon;
+        this.age = age;
+        var icon_img = '/static/img/marker_0' + icon + 'b.svg';
         var latLng = new google.maps.LatLng(this.longitude, this.latitude);
         var marker = new google.maps.Marker({
           position: latLng,
           map: map,
           data: this,
-          icon: icon,
+          icon: icon_img,
           title: this.postcode.toString(),
         });
         marker.addListener('click', function() {
-          if(!$('#details').hasClass('is-active')){
-            $('#details').addClass('is-active')
+          if(!$('#pcode-details').hasClass('is-active')){
+            $('#pcode-details').addClass('is-active')
           }
-          $('#details').html(template(this.data));
+          $('#pcode-details').html(template(this.data));
         });
         markers.push(marker);
       });
@@ -103,6 +105,18 @@ $(document).ready(function() {
   // intialise markers
   addMarkers(age);
 
+
+  // Postcode filter
+  $('#pcode-form').on('submit', function(e){
+    e.preventDefault();
+    var pcode = $('#pcode-field').val()
+    $.getJSON('/api/postcode/' + pcode + '/age/' + age, function(data){
+      $('#pcode-details').html(template(data));
+      if(!$('#pcode-details').hasClass('is-active')){
+        $('#pcode-details').addClass('is-active')
+      }
+    });
+  });
 
   // Nav dropdown
   $('.has-dropdown').on('click', function(){
