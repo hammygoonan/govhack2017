@@ -12,6 +12,12 @@ api_blueprint = Blueprint(
 
 
 @api_blueprint.route('/')
-def home():
+def index():
+    postcodes = Postcode.query.all()
+    return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
+
+
+@api_blueprint.route('/age/<period>')
+def filter(period):
     postcodes = Postcode.query.all()
     return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
