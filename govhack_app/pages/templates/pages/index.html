@@ -48,7 +48,7 @@
         </form>
       </div>
       <form id="pcode-form">
-        <h4 class="title">Seach by postcode:</h4>
+        <h4 class="title">Search by postcode:</h4>
         <p>Click on a dot below or:<p>
         <div class="field">
           <div class="control">
@@ -81,6 +81,7 @@
       <div class="stat-box">
         <p><strong>Need ranking:</strong></p>
         <h1 class="title">{{ score }}</h1>
+        <p>1 - limited, 5 - extreme</p>
       </div>
       <div class="stat-box">
         <p><strong>Age group:</strong></p>
@@ -92,22 +93,30 @@
         <h4 class="title">Five years: {{places_needed_5_year}}</h4>
         <h4 class="title">Ten years: {{places_needed_10_year}}</h4>
       </div>
-      <div class="stat-box">
-        <p><strong>Current Government funded places (within 5km)</strong></p>
-        <h4 class="title">{{government_funded_places}}</h4>
-      </div>
-      <div class="stat-box">
-        <p><strong>Child population growth:</strong></p>
-        <h4 class="title">{{ population_growth }}%</h4>
-      </div>
-      <div class="stat-box">
-        <p><strong>SEIFA score:</strong></p>
-        <h4 class="title">{{seifa}}</h4>
-      </div>
-      <div class="stat-box">
-        <p><strong>Media house price:</strong></p>
-        <h4 class="title">${{ property_median_price }}</h4>
-      </div>
+      {{#if government_funded_places}}
+        <div class="stat-box">
+          <p><strong>Current Government funded places (within 5km)</strong></p>
+          <h4 class="title">{{government_funded_places}}</h4>
+        </div>
+      {{/if}}
+      {{#if population_growth}}
+        <div class="stat-box">
+          <p><strong>Child population growth:</strong></p>
+          <h4 class="title">{{ population_growth }}%</h4>
+        </div>
+      {{/if}}
+      {{#if seifa}}
+        <div class="stat-box">
+          <p><strong>SEIFA score:</strong></p>
+          <h4 class="title">{{seifa}}</h4>
+        </div>
+      {{/if}}
+      {{#if property_median_price}}
+        <div class="stat-box">
+          <p><strong>Median house price:</strong></p>
+          <h4 class="title">${{ property_median_price }}</h4>
+        </div>
+      {{/if}}
     </section>
   </script>
 {% endraw %}
