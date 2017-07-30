@@ -29,7 +29,7 @@ $(document).ready(function() {
     forecast = $(this).val();
   });
 
-  var age = 1;
+  var age = '0-4';
   $('input:radio[name="age"]').on('change', function(){
     age = $(this).val();
   });
@@ -61,7 +61,7 @@ $(document).ready(function() {
         this.score = icon;
         this.age = age;
         var icon_img = '/static/img/marker_0' + icon + 'b.svg';
-        var latLng = new google.maps.LatLng(this.longitude, this.latitude);
+        var latLng = new google.maps.LatLng(this.postcode.longitude, this.postcode.latitude);
         var marker = new google.maps.Marker({
           position: latLng,
           map: map,
@@ -111,10 +111,18 @@ $(document).ready(function() {
     e.preventDefault();
     var pcode = $('#pcode-field').val()
     $.getJSON('/api/postcode/' + pcode + '/age/' + age, function(data){
-      $('#pcode-details').html(template(data));
-      if(!$('#pcode-details').hasClass('is-active')){
-        $('#pcode-details').addClass('is-active')
+      if(forecast == 5){
+        var icon = data.score_5_year
       }
+      if(forecast == 10){
+        var icon = data.score_10_year
+      }
+      else{
+        var icon = data.score_1_year
+      }
+      data.score = icon;
+      data.age = age;
+      $('#pcode-details').html(template(data));
     });
   });
 

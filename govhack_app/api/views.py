@@ -17,29 +17,14 @@ def index():
     return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
 
 
-@api_blueprint.route('/age/<int:age>')
+@api_blueprint.route('/age/<age>')
 def filter(age):
-    if age == 1:
-        age = '0-4'
-    if age == 5:
-        age = '5-9'
-    if age == 10:
-        age = '10-14'
     postcodes = Demand.query.filter_by(age=age).all()
     return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})
 
 
-@api_blueprint.route('/postcode/<int:postcode>/age/<int:age>')
+@api_blueprint.route('/postcode/<int:postcode>/age/<age>')
 def postcode(postcode, age):
-    if age == 1:
-        age = '0-4'
-    if age == 5:
-        age = '5-9'
-    if age == 10:
-        age = '10-14'
     postcode = Demand.query.join(Postcode).filter(
         Postcode.postcode == postcode, Demand.age == age).first()
-    # postcodes = Demand.query.all()
-    # print([pcode.serialise() for pcode in postcodes])
     return jsonify(postcode.serialise())
-    # return jsonify({'postcodes': [pcode.serialise() for pcode in postcodes]})

@@ -63,10 +63,6 @@
       </form>
     </div>
     <div id="pcode-details"></div>
-    <div class="stat-box">
-      <h4 class="title">Get full data:</h4>
-      <a href="/api/">Download data</a>
-    </div>
   </div>
   <div class="column is-9">
     <div id="map"></div>
@@ -77,9 +73,9 @@
     <section class="results">
       <div class="stat-box">
         <p><strong>Postcode</strong></p>
-        <h1 class="title">{{ postcode }}</h1>
+        <h1 class="title">{{ postcode.postcode }}</h1>
         <ul>
-          {{#each lga}}<li>{{name}}</li>{{/each}}
+          {{#each postcode.lga}}<li>{{name}}</li>{{/each}}
         </ul>
       </div>
       <div class="stat-box">
@@ -91,25 +87,26 @@
         <h1 class="title">{{ age }} year(s)</h1>
       </div>
       <div class="stat-box">
-        <h4 class="title">Child care centres needed (within 5km):</h4>
-        <p>One year: {{places_needed_1_year}}</p>
-        <p>Five years: {{places_needed_5_year}}</p>
-        <p>Ten years: {{places_needed_10_year}}</p>
+        <p><strong>Centres needed in:</strong></p>
+        <h4 class="title">One year: {{places_needed_1_year}}</h4>
+        <h4 class="title">Five years: {{places_needed_5_year}}</h4>
+        <h4 class="title">Ten years: {{places_needed_10_year}}</h4>
       </div>
       <div class="stat-box">
-        <h4 class="title">Child population growth:</h4>
-        <p>{{ population_growth }}</p>
+        <p><strong>Current Government funded places (within 5km)</strong></p>
+        <h4 class="title">{{government_funded_places}}</h4>
       </div>
       <div class="stat-box">
-        <h4 class="title">Socio-economic indexes for area:</h4>
-        <p><strong>Average Income:</strong> {{avg_income}}</p>
-        <p><strong>Income below threshold:</strong> {{income_below_threshold}}</p>
-        <p><strong>Population growth:</strong> {{population_growth}}</p>
-        <p><strong>SEIFA score:</strong> {{seifa}}</p>
+        <p><strong>Child population growth:</strong></p>
+        <h4 class="title">{{ population_growth }}%</h4>
       </div>
       <div class="stat-box">
-        <h4 class="title">Media house price:</h4>
-        <p>{{ property_growth }}</p>
+        <p><strong>SEIFA score:</strong></p>
+        <h4 class="title">{{seifa}}</h4>
+      </div>
+      <div class="stat-box">
+        <p><strong>Media house price:</strong></p>
+        <h4 class="title">${{ property_median_price }}</h4>
       </div>
     </section>
   </script>

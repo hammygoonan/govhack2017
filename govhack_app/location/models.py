@@ -85,12 +85,15 @@ class Demand(db.Model):
         self.places_needed_10_year = kwargs.get('places_needed_10_year')
 
     def serialise(self):
+        population_growth = None
+        if self.population_growth:
+            population_growth = round(self.population_growth * 100, 2)
         return {
             'postcode': self.postcode.serialise(),
             'government_funded_places': self.government_funded_places,
             'seifa': self.seifa,
             'age': self.age,
-            'population_growth': self.population_growth,
+            'population_growth': population_growth,
             'property_median_price': self.property_median_price,
             'score_1_year': self.score_1_year,
             'score_5_year': self.score_5_year,
